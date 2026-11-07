@@ -1,7 +1,5 @@
-// Einzige Stelle für den App-Store-Link.
-// Sobald die App live ist, hier den Link eintragen, z. B.
-//   appStoreUrl: 'https://apps.apple.com/de/app/ammersee-segler/id1234567890'
-// Leer = Seite zeigt "Bald im App Store", /app/ leitet auf die Startseite.
+// App-Store-Link für Startseite und /app/ (Ziel von QR-Code und NFC-Tag der Scan-Karte).
+// Wird er geändert, auch den festen Link im Button in index.html anpassen.
 window.AMMERSEE_SEGLER = {
-  appStoreUrl: ''
+  appStoreUrl: 'https://apps.apple.com/de/app/ammersee-segler/id6829076019'
 };

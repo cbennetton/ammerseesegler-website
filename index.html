@@ -42,11 +42,10 @@
       <h1>Leinen los<br><span>am Ammersee.</span></h1>
       <p class="lead">Segeln lernen in 3D, mit echter Segelphysik. Vom ersten Schlag als Fux bis zum Schiffer auf dem großen Kielboot. Möwe Hampti-Damti schaut dir dabei kritisch zu.</p>
       <div class="cta-row" id="laden">
-        <a class="store-btn" id="store-btn" href="#laden" aria-disabled="true">
+        <a class="store-btn" id="store-btn" href="https://apps.apple.com/de/app/ammersee-segler/id6829076019">
           <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42L11 13.6V4a1 1 0 0 1 1-1Zm-7 15a1 1 0 0 1 1 1v1h12v-1a1 1 0 1 1 2 0v2a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1Z"/></svg>
-          <span><small id="store-small">Bald gratis im</small><b>App Store</b></span>
+          <span><small>Gratis laden im</small><b>App Store</b></span>
         </a>
-        <p class="cta-note" id="store-note">Die App ist gerade bei Apple in Prüfung. Schau in ein paar Tagen wieder vorbei.</p>
       </div>
       <ul class="chips">
         <li>iPhone &amp; iPad</li><li>Ohne Werbung</li><li>Ohne Konto</li><li>Offline</li>
@@ -82,8 +81,9 @@
     <div class="share-card">
       <div>
         <h2>Weitersagen an die Crew</h2>
-        <p>Schick den Link in die Vereinsgruppe. Am Rechner? Scann den Code mit dem iPhone.</p>
-        <a class="wa-btn" id="wa-btn" href="https://wa.me/?text=Ammersee%20Segler%3A%20Segeln%20lernen%20in%203D%20auf%20dem%20Ammersee%20%E2%9B%B5%20https%3A%2F%2Fcbennetton.github.io%2Fammerseesegler-website%2F">In WhatsApp teilen</a>
+        <p>Schick den Link in die Vereinsgruppe oder an deine Crew. Am Rechner? Scann den Code mit dem iPhone.</p>
+        <button class="share-btn" id="share-btn" type="button">Teilen</button>
+        <span class="share-ok" id="share-ok" role="status" hidden>Link kopiert</span>
       </div>
       <img class="qr" src="assets/qr.svg" alt="QR-Code zur App" width="148" height="148">
     </div>
@@ -98,12 +98,17 @@
 <script>
   (function () {
     var url = (window.AMMERSEE_SEGLER && window.AMMERSEE_SEGLER.appStoreUrl) || '';
-    if (!url) return;
-    var btn = document.getElementById('store-btn');
-    btn.href = url;
-    btn.removeAttribute('aria-disabled');
-    document.getElementById('store-small').textContent = 'Gratis laden im';
-    document.getElementById('store-note').hidden = true;
+    if (url) document.getElementById('store-btn').href = url;
+
+    var page = 'https://cbennetton.github.io/ammerseesegler-website/';
+    var data = { title: 'Ammersee Segler', text: 'Ammersee Segler: Segeln lernen in 3D auf dem Ammersee ⛵', url: page };
+    var ok = document.getElementById('share-ok');
+    document.getElementById('share-btn').addEventListener('click', function () {
+      if (navigator.share) { navigator.share(data).catch(function () {}); return; }
+      var done = function () { ok.hidden = false; setTimeout(function () { ok.hidden = true; }, 2500); };
+      if (navigator.clipboard) navigator.clipboard.writeText(page).then(done, function () { prompt('Link kopieren:', page); });
+      else prompt('Link kopieren:', page);
+    });
   })();
 </script>
 </body>
